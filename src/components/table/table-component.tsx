@@ -46,9 +46,18 @@ const TableComponent: React.FC<{ users: User[] }> = ({ users }) => {
   };
 
   const toggleInputVisibility = (field: string) => {
-    setVisibleInputs({
-      ...visibleInputs,
-      [field]: !visibleInputs[field as keyof typeof visibleInputs],
+    setVisibleInputs((prevState) => {
+      const newVisibility = !prevState[field as keyof typeof prevState];
+      if (!newVisibility) {
+        setFilters((prevFilters) => ({
+          ...prevFilters,
+          [field]: "",
+        }));
+      }
+      return {
+        ...prevState,
+        [field]: newVisibility,
+      };
     });
   };
 
