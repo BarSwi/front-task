@@ -2,7 +2,9 @@ $base-spacing-pixels: 24px;
 $half-spacing-unit: calc($base-spacing-pixels / 2);
 $transition-time: 0.1s;
 $color-main: #eeeeee;
-
+.componentWrapper {
+  width: 100%;
+}
 .tableWrapper {
   overflow: auto;
   width: 100%;
@@ -49,6 +51,11 @@ $color-main: #eeeeee;
       top: 5px;
       text-align: center;
       transition: all $transition-time ease-in;
+
+      @media (max-width: 1024px) {
+        content: "tap to filter:";
+        opacity: 1;
+      }
     }
     &:hover {
       cursor: pointer;
@@ -61,5 +68,18 @@ $color-main: #eeeeee;
 
   &:nth-of-type(even) {
     background: $color-main;
+  }
+}
+.inputsWrapper {
+  box-sizing: border-box;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: auto;
+  width: calc(100% - 5px);
+  gap: 10px;
+  .searchInput {
+    flex: 1 1 calc(50% - 30px);
+    max-width: calc(100% - 30px);
   }
 }

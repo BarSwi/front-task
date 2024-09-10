@@ -1,0 +1,49 @@
+$color-main: #b3afaf;
+
+.inputWrapper {
+  width: 100%;
+  position: relative;
+  margin: 2px;
+  input {
+    $padding: 25px;
+    $adjusted-padding: $padding + 15px;
+    width: calc(100% - $adjusted-padding);
+    height: 40px;
+    padding-left: $padding;
+    opacity: 0.9;
+    border: 1px solid $color-main;
+    border-radius: 5px;
+    &:focus + .icon {
+      animation: shake 0.3s ease-in-out;
+    }
+    &:focus,
+    &:hover {
+      outline: none;
+      opacity: 1;
+    }
+  }
+  .icon {
+    position: absolute;
+    transition: 0.3s all ease-in;
+    left: 5px;
+    top: 14px;
+  }
+}
+
+@keyframes shake {
+  0% {
+    transform: rotate(5deg);
+  }
+  25% {
+    transform: rotate(-5deg);
+  }
+  50% {
+    transform: rotate(5deg);
+  }
+  75% {
+    transform: rotate(-5deg);
+  }
+  100% {
+    transform: rotate(5deg);
+  }
+}
