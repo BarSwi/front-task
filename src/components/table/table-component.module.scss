@@ -1,0 +1,65 @@
+$base-spacing-pixels: 24px;
+$half-spacing-unit: calc($base-spacing-pixels / 2);
+$transition-time: 0.1s;
+$color-main: #eeeeee;
+
+.tableWrapper {
+  overflow: auto;
+  width: 100%;
+  position: relative;
+}
+.table {
+  width: 100%;
+  min-width: 500px;
+  border: 1px solid $color-main;
+}
+
+.tableHeader {
+  text-transform: uppercase;
+  background-color: rgb(44, 43, 43);
+  color: white;
+}
+
+.tableRow {
+  display: flex;
+  gap: 20px;
+  width: 100%;
+  align-items: center;
+  td,
+  th {
+    flex: 1 20%;
+    text-align: center;
+    word-break: break-word;
+    height: 100%;
+    opacity: 0.8;
+    display: inline-block;
+    transition: all $transition-time ease-in;
+    padding: ($half-spacing-unit * 1.5) 0;
+  }
+  th {
+    position: relative;
+
+    &:after {
+      display: block;
+      opacity: 0;
+      width: 100%;
+      font-size: 0.6rem;
+      content: "filter by:";
+      position: absolute;
+      top: 5px;
+      text-align: center;
+      transition: all $transition-time ease-in;
+    }
+    &:hover {
+      cursor: pointer;
+      opacity: 1;
+      &:after {
+        opacity: 1;
+      }
+    }
+  }
+
+  &:nth-of-type(even) {
+    background: $color-main;
+  }
+}

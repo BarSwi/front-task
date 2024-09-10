@@ -1,24 +1,19 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import logo from "./logo.svg";
+import TableComponent from "./components/table/table-component";
+import User from "./types/user";
+import "./App.css";
+import useFetchUsers from "./api/fetchUsers";
 
 function App() {
+  const { users, loading, error } = useFetchUsers();
+
+  if (loading) return <p>Loading...</p>;
+  if (error) return <p>Something went wrong</p>;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div id="container">
+      <TableComponent users={users} />
     </div>
   );
 }

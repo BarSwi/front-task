@@ -1,0 +1,95 @@
+import React, { useState } from "react";
+import styles from "./table-component.module.scss";
+import FilterInput from "../filter-input/filter-input";
+interface User {
+  id: number;
+  name: string;
+  username: string;
+  email: string;
+  phone: string;
+}
+
+// React.FC -> Okresla typ wlasciwosci których komponent oczekuje (props)
+const TableComponent: React.FC<{ users: User[] }> = ({ users }) => {
+  const [filters, setFilters] = useState({
+    name: "",
+    username: "",
+    email: "",
+    phone: "",
+  });
+  const columns = ["name", "username", "email", "phone"];
+
+  const [visibleInputs, setVisibleInputs] = useState({
+    name: false,
+    username: false,
+    email: false,
+    phone: false,
+  });
+
+  // Filtering logic
+  const filteredUsers = users.filter(
+    (user) =>
+      user.name.toLowerCase().includes(filters.name.toLowerCase()) &&
+      user.username.toLowerCase().includes(filters.username.toLowerCase()) &&
+      user.email.toLowerCase().includes(filters.email.toLowerCase()) &&
+      user.phone.toLowerCase().includes(filters.phone.toLowerCase())
+  );
+
+  const handleFilterChange = (
+    e: React.ChangeEvent<HTMLInputElement>,
+    field: string
+  ) => {
+    setFilters({
+      ...filters,
+      [field]: e.target.value,
+    });
+  };
+
+  const toggleInputVisibility = (field: string) => {
+    setVisibleInputs({
+      ...visibleInputs,
+      [field]: !visibleInputs[field as keyof typeof visibleInputs],
+    });
+  };
+
+  return (
+    // I am using keyof typeof for TypeScript to stop screaming on me, not sure if there is a better way to achieve similar effect and I feel like it's not the perfect solution for now.
+    <div className={styles.tableWrapper}>
+      <div className={styles.inputsWrapper}>
+        {columns.map(
+          (column) =>
+            visibleInputs[column as keyof typeof visibleInputs] && (
+              <FilterInput
+                key={column}
+                column={column}
+                value={filters[column as keyof typeof filters]}
+                onChange={handleFilterChange}
+              />
+            )
+        )}
+      </div>
+      <table className={styles.table}>
+        <thead className={styles.tableHeader}>
+          <tr className={styles.tableRow}>
+            <th onClick={() => toggleInputVisibility("name")}>Name</th>
+            <th onClick={() => toggleInputVisibility("username")}>Username</th>
+            <th onClick={() => toggleInputVisibility("email")}>Email</th>
+            <th onClick={() => toggleInputVisibility("phone")}>Phone</th>
+          </tr>
+        </thead>
+        <tbody>
+          {filteredUsers.map((user) => (
+            <tr key={user.id} className={styles.tableRow}>
+              <td>{user.name}</td>
+              <td>{user.username}</td>
+              <td>{user.email}</td>
+              <td>{user.phone}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  );
+};
+
+export default TableComponent;
