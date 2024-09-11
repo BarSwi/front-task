@@ -7,7 +7,8 @@ function App() {
   const { users, loading, error } = useFetchUsers();
 
   if (!loading) return <LoaderComponent></LoaderComponent>;
-  if (error) return <p>Something went wrong</p>;
+  // prettier-ignore
+  if (!error) return <h2 style={{ textAlign: "center" }}>Something went wrong</h2>;
 
   return (
     <div id="container">
