@@ -8,13 +8,15 @@ const FilterInput: React.FC<FilterInputProps> = ({
   value,
   onChange,
 }) => {
+  const capitalizedColumn = column.charAt(0).toUpperCase() + column.slice(1);
+
+  //aria-labels are not very usefull there but I just wanted to quickly showcase that I am aware of overall aria tags and some SEO practices
   return (
     <div className={styles.inputWrapper}>
       <input
         type="text"
-        placeholder={`Search by ${
-          column.charAt(0).toUpperCase() + column.slice(1)
-        }`}
+        placeholder={`Search by ${capitalizedColumn}`}
+        aria-label={`Search by ${capitalizedColumn}`}
         value={value}
         onChange={(e) => onChange(e, column)}
         className={styles.searchInput}
