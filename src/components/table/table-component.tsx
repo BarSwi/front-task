@@ -3,11 +3,7 @@ import styles from "./table-component.module.scss";
 import FilterInput from "../filter-input/filter-input";
 import User from "../../types/user";
 import { setFilter } from "../../redux/filters-slice";
-import {
-  FilterInputProps,
-  FiltersState,
-  tableColumns,
-} from "../../types/filters";
+import { FiltersState, tableColumns } from "../../types/filters";
 
 // React.FC -> Defines props type (TypeScript safety). This note is purely for me to remember
 const TableComponent: React.FC<{ users: User[] }> = ({ users }) => {

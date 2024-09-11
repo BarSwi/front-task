@@ -1,7 +1,4 @@
-import React, { useEffect, useState } from "react";
-import logo from "./logo.svg";
 import TableComponent from "./components/table/table-component";
-import User from "./types/user";
 import "./App.css";
 import useFetchUsers from "./api/fetchUsers";
 
