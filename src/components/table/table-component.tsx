@@ -2,17 +2,15 @@ import React, { useState } from "react";
 import styles from "./table-component.module.scss";
 import FilterInput from "../filter-input/filter-input";
 import User from "../../types/user";
-import { setFilter } from "../../redux/filters-slice";
+import { clearFilter, setFilter } from "../../redux/filters-slice";
 import { FiltersState, tableColumns } from "../../types/filters";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch, RootState } from "../../redux/store";
 
 // React.FC -> Defines props type (TypeScript safety). This note is purely for me to remember
 const TableComponent: React.FC<{ users: User[] }> = ({ users }) => {
-  const [filters, setFilters] = useState({
-    name: "",
-    username: "",
-    email: "",
-    phone: "",
-  });
+  const dispatch = useDispatch<AppDispatch>();
+  const filters = useSelector((state: RootState) => state.filters);
   const columns: tableColumns = ["name", "username", "email", "phone"];
   const [visibleInputs, setVisibleInputs] = useState({
     name: false,
@@ -38,15 +36,12 @@ const TableComponent: React.FC<{ users: User[] }> = ({ users }) => {
   };
 
   // This one on the other hand, I've decided to leave there locally, becasue it looks like something component specific so it should not be handled by global state
-  const toggleInputVisibility = (field: string) => {
+  const toggleInputVisibility = (field: keyof FiltersState) => {
     setVisibleInputs((prevState) => {
       //Logic looks complicated, but overall it's simply restoring specific column filter to it's default value after filter input disappears.
       const newVisibility = !prevState[field as keyof typeof prevState];
       if (!newVisibility) {
-        setFilters((prevFilters) => ({
-          ...prevFilters,
-          [field]: "",
-        }));
+        dispatch(clearFilter(field));
       }
       return {
         ...prevState,
@@ -102,6 +97,3 @@ const TableComponent: React.FC<{ users: User[] }> = ({ users }) => {
 };
 
 export default TableComponent;
-function dispatch(arg0: any) {
-  throw new Error("Function not implemented.");
-}
