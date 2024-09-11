@@ -33,7 +33,7 @@ const TableComponent: React.FC<{ users: User[] }> = ({ users }) => {
       user.phone.toLowerCase().includes(filters.phone.toLowerCase())
   );
 
-  //TODO: Refactor to redux
+  // I've decided to move this logic to redux becasue theoreticaly it could be used further in the application if it expands at some point.
   const handleFilterChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     field: keyof FiltersState
@@ -41,8 +41,10 @@ const TableComponent: React.FC<{ users: User[] }> = ({ users }) => {
     dispatch(setFilter({ field, value: e.target.value }));
   };
 
+  // This one on the other hand, I've decided to leave there locally, becasue it looks like something component specific so it should not be handled by global state
   const toggleInputVisibility = (field: string) => {
     setVisibleInputs((prevState) => {
+      //Logic looks complicated, but overall it's simply restoring specific column filter to it's default value after filter input disappears.
       const newVisibility = !prevState[field as keyof typeof prevState];
       if (!newVisibility) {
         setFilters((prevFilters) => ({
@@ -57,6 +59,7 @@ const TableComponent: React.FC<{ users: User[] }> = ({ users }) => {
     });
   };
 
+  // In production or more compelx application this might be split into 2 components -> inputsWrapper and tableWrapper. But in that case no need to overcomplicate for simple task
   return (
     <div className={styles.componentWrapper}>
       <div className={styles.inputsWrapper}>
