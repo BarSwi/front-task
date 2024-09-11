@@ -14,7 +14,7 @@ $color-main: #a5a1a1;
     border: 2px solid $color-main;
     border-radius: 5px;
     &:focus + .icon {
-      animation: shake 0.3s ease-in-out;
+      animation: shake 0.23s ease-in-out;
       animation-iteration-count: 2;
     }
     &:focus,
