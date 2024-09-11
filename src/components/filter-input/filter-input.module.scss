@@ -1,4 +1,4 @@
-$color-main: #b3afaf;
+$color-main: #a5a1a1;
 
 .inputWrapper {
   width: 100%;
@@ -11,7 +11,7 @@ $color-main: #b3afaf;
     height: 40px;
     padding-left: $padding;
     opacity: 0.9;
-    border: 1px solid $color-main;
+    border: 2px solid $color-main;
     border-radius: 5px;
     &:focus + .icon {
       animation: shake 0.3s ease-in-out;
