@@ -15,6 +15,7 @@ $color-main: #b3afaf;
     border-radius: 5px;
     &:focus + .icon {
       animation: shake 0.3s ease-in-out;
+      animation-iteration-count: 3;
     }
     &:focus,
     &:hover {
@@ -32,15 +33,6 @@ $color-main: #b3afaf;
 
 @keyframes shake {
   0% {
-    transform: rotate(5deg);
-  }
-  25% {
-    transform: rotate(-5deg);
-  }
-  50% {
-    transform: rotate(5deg);
-  }
-  75% {
     transform: rotate(-5deg);
   }
   100% {

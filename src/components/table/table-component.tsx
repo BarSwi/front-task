@@ -9,7 +9,7 @@ interface User {
   phone: string;
 }
 
-// React.FC -> Okresla typ wlasciwosci których komponent oczekuje (props)
+// React.FC -> Defines props type (TypeScript safety). This note is purely for me to remember
 const TableComponent: React.FC<{ users: User[] }> = ({ users }) => {
   const [filters, setFilters] = useState({
     name: "",
@@ -26,7 +26,6 @@ const TableComponent: React.FC<{ users: User[] }> = ({ users }) => {
     phone: false,
   });
 
-  // Filtering logic
   const filteredUsers = users.filter(
     (user) =>
       user.name.toLowerCase().includes(filters.name.toLowerCase()) &&
@@ -35,6 +34,7 @@ const TableComponent: React.FC<{ users: User[] }> = ({ users }) => {
       user.phone.toLowerCase().includes(filters.phone.toLowerCase())
   );
 
+  //TODO: Refactor to redux
   const handleFilterChange = (
     e: React.ChangeEvent<HTMLInputElement>,
     field: string
