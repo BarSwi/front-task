@@ -81,5 +81,8 @@ $color-main: #eeeeee;
   .searchInput {
     flex: 1 1 calc(50% - 30px);
     max-width: calc(100% - 30px);
+    @media (max-width: 525px) {
+      flex: 1 100%;
+    }
   }
 }
