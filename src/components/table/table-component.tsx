@@ -1,13 +1,13 @@
 import React, { useState } from "react";
 import styles from "./table-component.module.scss";
 import FilterInput from "../filter-input/filter-input";
-interface User {
-  id: number;
-  name: string;
-  username: string;
-  email: string;
-  phone: string;
-}
+import User from "../../types/user";
+import { setFilter } from "../../redux/filters-slice";
+import {
+  FilterInputProps,
+  FiltersState,
+  tableColumns,
+} from "../../types/filters";
 
 // React.FC -> Defines props type (TypeScript safety). This note is purely for me to remember
 const TableComponent: React.FC<{ users: User[] }> = ({ users }) => {
@@ -17,8 +17,7 @@ const TableComponent: React.FC<{ users: User[] }> = ({ users }) => {
     email: "",
     phone: "",
   });
-  const columns = ["name", "username", "email", "phone"];
-
+  const columns: tableColumns = ["name", "username", "email", "phone"];
   const [visibleInputs, setVisibleInputs] = useState({
     name: false,
     username: false,
@@ -37,12 +36,9 @@ const TableComponent: React.FC<{ users: User[] }> = ({ users }) => {
   //TODO: Refactor to redux
   const handleFilterChange = (
     e: React.ChangeEvent<HTMLInputElement>,
-    field: string
+    field: keyof FiltersState
   ) => {
-    setFilters({
-      ...filters,
-      [field]: e.target.value,
-    });
+    dispatch(setFilter({ field, value: e.target.value }));
   };
 
   const toggleInputVisibility = (field: string) => {
@@ -62,17 +58,16 @@ const TableComponent: React.FC<{ users: User[] }> = ({ users }) => {
   };
 
   return (
-    // I am using keyof typeof for TypeScript to stop screaming on me, not sure if there is a better way to achieve similar effect and I feel like it's not the perfect solution for now.
     <div className={styles.componentWrapper}>
       <div className={styles.inputsWrapper}>
         {columns.map(
           (column) =>
-            visibleInputs[column as keyof typeof visibleInputs] && (
+            visibleInputs[column] && (
               <div className={styles.searchInput}>
                 <FilterInput
                   key={column}
                   column={column}
-                  value={filters[column as keyof typeof filters]}
+                  value={filters[column]}
                   onChange={handleFilterChange}
                 />
               </div>
@@ -108,3 +103,6 @@ const TableComponent: React.FC<{ users: User[] }> = ({ users }) => {
 };
 
 export default TableComponent;
+function dispatch(arg0: any) {
+  throw new Error("Function not implemented.");
+}

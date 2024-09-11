@@ -1,12 +1,7 @@
 import React from "react";
 import styles from "./filter-input.module.scss";
 import { FaSearch } from "react-icons/fa";
-
-interface FilterInputProps {
-  column: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>, column: string) => void;
-}
+import { FilterInputProps } from "../../types/filters";
 
 const FilterInput: React.FC<FilterInputProps> = ({
   column,
